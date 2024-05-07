@@ -3,9 +3,13 @@
 import requests
 
 def number_of_subscribers(subreddit):
+    """
+    Queries the Reddit API and returns the number of total subscribers for a
+    given subreddit.
+    """
     url = f"https://www.reddit.com/r/{subreddit}/about.json"
-    headers = {'User-Agent': 'MyAPI/0.0.1'}
-    response = requests.get(url, headers=headers)
+    headers = {'User-Agent': 'Python/1.0 (Alx School 0x16 task 0)'}
+    response = requests.get(url, headers=headers, allow_redirects=False)
 
     if response.status_code == 200:
         data = response.json()
@@ -16,6 +20,10 @@ def number_of_subscribers(subreddit):
 
 # Test the function
 if __name__ == '__main__':
-    subreddit = input("Enter subreddit name: ")
-    print(number_of_subscribers(subreddit))
+    import sys
+    if len(sys.argv) < 2:
+        print("Please pass an argument for the subreddit to search.")
+    else:
+        subreddit = sys.argv[1]
+        print(number_of_subscribers(subreddit))
 
